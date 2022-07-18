@@ -11,8 +11,8 @@ User.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING
 
-    }, {
-        sequelize: db
+}, {
+    sequelize: db
 })
 
 //exports

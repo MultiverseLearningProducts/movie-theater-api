@@ -13,8 +13,8 @@ Show.init({
     rating: DataTypes.INTEGER,
     status: DataTypes.STRING,
 
-    }, {
-        sequelize: db
+}, {
+    sequelize: db
 })
 
 //exports
