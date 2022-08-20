@@ -12,7 +12,7 @@
   "dependencies": {
     "express": "^4.17.2",
     "nodemon": "^2.0.15",
-    "sequelize": "^6.13.0",
-    "sqlite3": "^5.0.2"
+    "sequelize": "^6.21.4",
+    "sqlite3": "^5.0.11"
   }
 }
