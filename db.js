@@ -1,5 +1,5 @@
 // imports
-const { Sequelize, DataTypes, Model } = require('sequelize')
+const { Sequelize, DataTypes } = require('sequelize')
 
 //create an instance of the database call it db
 const db = new Sequelize('database', 'username', 'password', {
@@ -11,4 +11,4 @@ const db = new Sequelize('database', 'username', 'password', {
 
 
 //export
-module.exports = { db, DataTypes, Model }
+module.exports = { db, DataTypes }
