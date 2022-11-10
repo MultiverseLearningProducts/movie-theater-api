@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const findUser = require("../middleware/usersMiddleware");
 const { User, Show } = require("../models");
 const userRouter = Router();
 
