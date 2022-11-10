@@ -28,15 +28,15 @@ userRouter.get("/:id/shows", async (req, res) => {
 // PUT update and add a show if a user has watched it
 userRouter.put("/:userId/shows/:showId", async (req, res) => {
   const singleUser = await User.findByPk(req.params.userId);
-  console.log(singleUser);
   const showToUpdate = await Show.findByPk(req.params.showId);
   const updatedShow = await showToUpdate.update(req.body, {
     where: {
       id: req.params.showId,
     },
   });
-  console.log(updatedShow);
-  await singleUser.addShow(updatedShow);
+  if (updatedShow.status === "watched") {
+    await singleUser.addShow(updatedShow);
+  }
   res.status(201).send(updatedShow);
 });
 
