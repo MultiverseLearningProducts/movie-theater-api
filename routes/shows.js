@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { body } = require("express-validator");
 const { getSingleShow } = require("../middleware/helper-functions");
 const { User, Show } = require("../models");
 const showRouter = Router();
@@ -38,18 +39,28 @@ showRouter.get("/genres/:genre", async (req, res) => {
 
 // PUT update a rating in a specific show - using an endpoint
 // if show does not exist, return 404 not found status
-showRouter.put("/:listLocation/watched", async (req, res) => {
-  const allWatchedShows = await Show.findAll({ where: { status: "watched" } });
-  if (allWatchedShows.length === 0) {
-    res.status(404).send("No watched shows");
-  } else if (allWatchedShows.length < req.params.listLocation) {
-    res.status(404).send("No show found at that location");
-  } else {
-    const showToUpdate = allWatchedShows[req.params.listLocation - 1];
-    await showToUpdate.update(req.body);
-    res.send(showToUpdate);
+showRouter.put(
+  "/:listLocation/watched",
+  body("rating").matches(/\d/).withMessage("Rating must be a number"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).send({ errors: errors.array() });
+    }
+    const allWatchedShows = await Show.findAll({
+      where: { status: "watched" },
+    });
+    if (allWatchedShows.length === 0) {
+      res.status(404).send("No watched shows");
+    } else if (allWatchedShows.length < req.params.listLocation) {
+      res.status(404).send("No show found at that location");
+    } else {
+      const showToUpdate = allWatchedShows[req.params.listLocation - 1];
+      await showToUpdate.update(req.body);
+      res.send(showToUpdate);
+    }
   }
-});
+);
 
 // PUT update the status on a specific show from "cancelled" to "on-going" or vice-versa - using an endpoint
 showRouter.put("/:id/updates", getSingleShow, async (req, res) => {
