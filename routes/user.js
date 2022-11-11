@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const { User, Show } = require("../models");
 const userRouter = Router();
+const { getSingleUser } = require("../middleware/helper-functions");
 
 // GET all users
-
 userRouter.get("/", async (req, res) => {
   const allUsers = await User.findAll();
   res.send(allUsers);
@@ -11,8 +11,8 @@ userRouter.get("/", async (req, res) => {
 
 // GET one user - using an endpoint
 // if user does not exist, return 404 not found status
-userRouter.get("/:id", async (req, res) => {
-  const singleUser = await User.findByPk(req.params.id);
+userRouter.get("/:id", getSingleUser, async (req, res) => {
+  const { singleUser } = req;
   if (!singleUser) {
     res.status(404).send("User not found");
   } else {
@@ -23,8 +23,8 @@ userRouter.get("/:id", async (req, res) => {
 // GET all shows watched by one user
 // if user does not exist, return 404 not found status
 // if user has no watched shows, return 404 not found status
-userRouter.get("/:id/shows", async (req, res) => {
-  const singleUser = await User.findByPk(req.params.id);
+userRouter.get("/:id/shows", getSingleUser, async (req, res) => {
+  const { singleUser } = req;
   if (!singleUser) {
     return res.status(404).send("User not found");
   } else {
@@ -42,8 +42,8 @@ userRouter.get("/:id/shows", async (req, res) => {
 // PUT update and add a show if a user has watched it
 // if user does not exist, return 404 not found status
 // if show does not exist, return 404 not found status
-userRouter.put("/:userId/shows/:showId", async (req, res) => {
-  const singleUser = await User.findByPk(req.params.userId);
+userRouter.put("/:id/shows/:showId", getSingleUser, async (req, res) => {
+  const { singleUser } = req;
   const showToUpdate = await Show.findByPk(req.params.showId);
   if (!singleUser || !showToUpdate) {
     return res.status(404).send("Not found");
