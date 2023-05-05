@@ -8,7 +8,5 @@ const db = new Sequelize('database', 'username', 'password', {
     logging: false
 })
 
-
-
 //export
 module.exports = { db, DataTypes }
