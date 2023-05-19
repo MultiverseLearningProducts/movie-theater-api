@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Inception",
+    "genre": "Science Fiction",
+    "available": true
+  },
+  {
+    "title": "The Dark Knight",
+    "genre": "Action",
+    "available": true
+  },
+  {
+    "title": "Harry Potter: The Prisoner of Azkaban",
+    "genre": "Fantasy",
+    "available": true
+  },
+  {
+    "title": "Jurassic Park",
+    "genre": "Science Fiction",
+    "available": false
+  },
+  {
+    "title": "The Lord of the Rings: The Return of the King",
+    "genre": "Fantasy",
+    "available": true
+  },
+  {
+    "title": "Black Panther",
+    "genre": "Action",
+    "available": true
+  }
+]
