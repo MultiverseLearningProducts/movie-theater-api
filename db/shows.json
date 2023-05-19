@@ -1,68 +1,32 @@
 [
   {
-    "title": "King of Queens",
-    "genre": "Drama",
-    "rating": 5,
-    "status": "on-going"
+    "title": "Inception",
+    "genre": "Science Fiction",
+    "available": true
   },
   {
-    "title": "X-Files",
-    "genre": "Sitcom",
-    "rating": 0,
-    "status": "on-going"
+    "title": "The Dark Knight",
+    "genre": "Action",
+    "available": true
   },
   {
-    "title": "The Office",
-    "genre": "Comedy",
-    "rating": 1,
-    "status": "on-going"
+    "title": "Harry Potter: The Prisoner of Azkaban",
+    "genre": "Fantasy",
+    "available": true
   },
   {
-    "title": "American Horror Story",
-    "genre": "Sitcom",
-    "rating": 5,
-    "status": "on-going"
+    "title": "Jurassic Park",
+    "genre": "Science Fiction",
+    "available": false
   },
   {
-    "title": "House",
-    "genre": "Comedy",
-    "rating": 0,
-    "status": "on-going"
+    "title": "The Lord of the Rings: The Return of the King",
+    "genre": "Fantasy",
+    "available": true
   },
   {
-    "title": "The Punisher",
-    "genre": "Drama",
-    "rating": 5,
-    "status": "on-going"
-  },
-  {
-    "title": "Squid Games",
-    "genre": "Comedy",
-    "rating": 0,
-    "status": "on-going"
-  },
-  {
-    "title": "Avatar",
-    "genre": "Comedy",
-    "rating": 1,
-    "status": "on-going"
-  },
-  {
-    "title": "Demon Slayer",
-    "genre": "Sitcom",
-    "rating": 5,
-    "status": "cancelled"
-  },
-  {
-    "title": "Jujutsu Kaisen",
-    "genre": "Horror",
-    "rating": 0,
-    "status": "cancelled"
-  },
-  {
-    "title": "Queens Gambit",
-    "genre": "Drama",
-    "rating": 0,
-    "status": "cancelled"
+    "title": "Black Panther",
+    "genre": "Action",
+    "available": true
   }
 ]

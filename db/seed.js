@@ -8,11 +8,19 @@ const seed = async () => {
   await db.sync({ force: true })
 
   // add the data
-  await Show.bulkCreate(showData)
-  await User.bulkCreate(userData)
+  const users = await User.bulkCreate(userData)
+  const shows = await Show.bulkCreate(showData)
+  // associate some data
+  await Promise.all([
+    users[0].addShow(shows[0]),
+    users[0].addShow(shows[1]),
+    users[1].addShow(shows[2]),
+    users[1].addShow(shows[3])
+  ])
 
   console.log('Shows and User database info populated!')
 }
 
 //export my seed function
-module.exports = seed
+// module.exports = seed
+seed()
