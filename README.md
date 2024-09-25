@@ -31,7 +31,6 @@ satisfy my urge to list things
   - sqlite3
   - sequelize
   - express
-  - express-validator
   - nodemon
 
 Once everything is installed, you can run `npm run seed` to reset and fill your
@@ -49,18 +48,18 @@ Create the route handlers for the project, per these definitions:
 **Users**
 
 - `GET` all users
-- `GET` one user
+- `GET` one user (user id in `req.params`)
 - `GET` all shows watched by a user (user id in `req.params`)
 - `PUT` associate a user with a show they have watched
 
 **Shows**
 
 - `GET` all shows
-- `GET` one show
+- `GET` one show (show id in `req.params`)
 - `GET` all users who watched a show
 - `PUT` update the `available` property of a show
 - `DELETE` a show
-- `GET` shows of a particular genre (genre in `req.query`)
+- `GET` shows of a particular genre (genre in `req.params`)
 
 **Make sure to include your routers in a directory named `routes`**
 
@@ -72,13 +71,3 @@ Create the route handlers for the project, per these definitions:
 
 - `git add .`, `git commit -m “somemessage”` and `git push` so we can see your
   work.
-
-## Server Side Validation
-
-### Updating Show Status
-
-Use server-side validation in your routes to ensure that:
-
-- The title of a show must be a maximum of 25 characters
-- The username must be an email address
-  [hint](https://express-validator.github.io/docs/api/validation-chain/#isemail)
