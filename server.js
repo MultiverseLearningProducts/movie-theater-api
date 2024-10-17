@@ -3,8 +3,14 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+// Import routes
+const usersRouter = require('./routes/users');
+
 // Middleware to parse JSON bodies (for POST requests)
 app.use(express.json());
+
+// Use the users router for requests to /users
+app.use('/users', usersRouter);
 
 // A simple route for testing
 app.get('/', (req, res) => {
