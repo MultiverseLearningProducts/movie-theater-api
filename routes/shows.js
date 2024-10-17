@@ -1,7 +1,33 @@
-const express = require('express');
+const express = require('express'); 
+const { body, validationResult } = require('express-validator');
 const Show = require('../models/Show');
 const User = require('../models/User');  
 const router = express.Router();
+
+// PUT update the available property of a show
+router.put(
+    '/:id/available', // Route to update available property of a show by ID
+    body('available').isBoolean().withMessage('Available must be a boolean value'), // Validate available field
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() }); // Return errors if any
+        }
+
+        try {
+            const show = await Show.findByPk(req.params.id);
+            if (show) {
+                show.available = req.body.available; // Update the 'available' field
+                await show.save(); // Save changes
+                res.json({ message: 'Show availability updated', show }); // Respond with updated show
+            } else {
+                res.status(404).json({ message: 'Show not found' }); // Show not found
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Failed to update show availability', error: error.message }); // Handle errors
+        }
+    }
+);
 
 // GET all shows
 router.get('/', async (req, res) => {
@@ -28,11 +54,12 @@ router.get('/:id', async (req, res) => {
 });
 
 // GET all users who watched a specific show
-router.get('/:id/users', async (req, res) => {
+router.get('/:showId/users', async (req, res) => {
     try {
-        const show = await Show.findByPk(req.params.id, {
+        const show = await Show.findByPk(req.params.showId, {
             include: [User], // Include associated users
         });
+
         if (show) {
             res.json(show.Users); // Returns the users associated with the show
         } else {
@@ -44,21 +71,6 @@ router.get('/:id/users', async (req, res) => {
 });
 
 
-// PUT update the available property of a show
-router.put('/:id', async (req, res) => {
-    try {
-        const show = await Show.findByPk(req.params.id);
-        if (show) {
-            show.available = req.body.available; // Update the 'available' field from the request body
-            await show.save();
-            res.json({ message: 'Show availability updated', show });
-        } else {
-            res.status(404).json({ message: 'Show not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to update show availability', error: error.message });
-    }
-});
 
 // DELETE a show by ID
 router.delete('/:id', async (req, res) => {
@@ -66,7 +78,7 @@ router.delete('/:id', async (req, res) => {
         const show = await Show.findByPk(req.params.id);
         if (show) {
             await show.destroy();
-            res.json({ message: 'Show deleted successfully' });
+            res.status(204).send(); // No content
         } else {
             res.status(404).json({ message: 'Show not found' });
         }
@@ -92,3 +104,4 @@ router.get('/genre', async (req, res) => {
 
 // Export the router
 module.exports = router;
+

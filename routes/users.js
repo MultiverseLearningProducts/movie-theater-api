@@ -1,7 +1,28 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const Show = require('../models/Show'); 
 const router = express.Router();
+
+// POST create a user
+router.post(
+    '/',
+    body('username').isEmail().withMessage('Username must be a valid email address'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const user = await User.create(req.body);
+            res.status(201).json(user);
+        } catch (error) {
+            res.status(500).json({ message: 'Failed to create user', error: error.message });
+        }
+    }
+);
 
 // GET all users
 router.get('/', async (req, res) => {
@@ -27,12 +48,13 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// GET all shows watched by a user
-router.get('/:id/shows', async (req, res) => {
+//GET all users who watched a specific show
+router.get('/:userId/shows', async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id, {
+        const user = await User.findByPk(req.params.userId, {
             include: [Show], // Include associated shows
         });
+
         if (user) {
             res.json(user.Shows); // Returns the shows associated with the user
         } else {
@@ -43,6 +65,25 @@ router.get('/:id/shows', async (req, res) => {
     }
 });
 
+// Associate a user with a show they have watched
+router.put('/:userId/shows/', async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.userId, {
+        include: [Show], // Include associated shows
+        });
+
+        if (user) {
+            res.json(user.shows); 
+    } else {
+        
+        await user.addShow(show); // Associate the user with the show
+
+        res.json({ message: 'User associated with show successfully' });
+    }
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to associate user with show', error: error.message });
+    }
+});
 
 // PUT associate a user with a show they have watched
 router.put('/:id/shows/:showId', async (req, res) => {
