@@ -1,7 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const User = require('../models/User');
-const Show = require('../models/Show'); 
+const { User, Show } = require('../models');
 const router = express.Router();
 
 // POST create a user
@@ -48,7 +47,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-//GET all users who watched a specific show
+// GET all shows watched by a specific user
 router.get('/:userId/shows', async (req, res) => {
     try {
         const user = await User.findByPk(req.params.userId, {
@@ -56,32 +55,12 @@ router.get('/:userId/shows', async (req, res) => {
         });
 
         if (user) {
-            res.json(user.Shows); // Returns the shows associated with the user
+            res.json(user.Shows); // Return the shows associated with the user
         } else {
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
         res.status(500).json({ message: 'Failed to retrieve shows for user', error: error.message });
-    }
-});
-
-// Associate a user with a show they have watched
-router.put('/:userId/shows/', async (req, res) => {
-    try {
-        const user = await User.findByPk(req.params.userId, {
-        include: [Show], // Include associated shows
-        });
-
-        if (user) {
-            res.json(user.shows); 
-    } else {
-        
-        await user.addShow(show); // Associate the user with the show
-
-        res.json({ message: 'User associated with show successfully' });
-    }
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to associate user with show', error: error.message });
     }
 });
 
@@ -92,7 +71,7 @@ router.put('/:id/shows/:showId', async (req, res) => {
         const show = await Show.findByPk(req.params.showId);
 
         if (user && show) {
-            await user.addShow(show); // Assumes a Many-to-Many relationship
+            await user.addShow(show); // Create the association between user and show
             res.json({ message: `User ${user.id} is now associated with show ${show.id}` });
         } else {
             res.status(404).json({ message: 'User or Show not found' });
@@ -104,3 +83,4 @@ router.put('/:id/shows/:showId', async (req, res) => {
 
 // Export the router
 module.exports = router;
+
