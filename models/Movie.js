@@ -7,8 +7,6 @@ Movie.init(
   {
     title: DataTypes.STRING,
     genre: DataTypes.STRING,
-    rating: DataTypes.INTEGER,
-    available: DataTypes.BOOLEAN,
   },
   {
     sequelize: db,
