@@ -27,11 +27,7 @@ satisfy my urge to list things
 
 ### Install Dependencies
 
-- Install the following npm packages:
-  - sqlite3
-  - sequelize
-  - express
-  - nodemon
+To install the dependencies, run `npm install`.
 
 Once everything is installed, you can run `npm run seed` to reset and fill your
 database with initial seed data. You can run this command at any time to reset
