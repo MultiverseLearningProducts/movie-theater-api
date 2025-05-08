@@ -1,10 +1,12 @@
-const Movie = require('./Movie')
-const User = require('./User')
+const Movie = require("./Movie.js");
+const User = require("./User.js");
+const Watched = require("./Watched.js");
 
-Movie.belongsToMany(User, { through: 'watched' })
-User.belongsToMany(Movie, { through: 'watched' })
+User.belongsToMany(Movie, { through: Watched });
+Movie.belongsToMany(User, { through: Watched });
 
 module.exports = {
   Movie,
-  User
-}
+  User,
+  Watched,
+};
