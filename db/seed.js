@@ -1,7 +1,7 @@
 const { db } = require('./connection')
-const { Show, User } = require('../models/index')
+const { Movie, User } = require('../models/index')
 const userData = require('./users.json')
-const showData = require('./shows.json')
+const movieData = require('./movies.json')
 
 const seed = async () => {
   // drop the db
@@ -9,16 +9,16 @@ const seed = async () => {
 
   // add the data
   const users = await User.bulkCreate(userData)
-  const shows = await Show.bulkCreate(showData)
+  const movies = await Movie.bulkCreate(movieData)
   // associate some data
   await Promise.all([
-    users[0].addShow(shows[0]),
-    users[0].addShow(shows[1]),
-    users[1].addShow(shows[2]),
-    users[1].addShow(shows[3])
+    users[0].addMovie(movies[0]),
+    users[0].addMovie(movies[1]),
+    users[1].addMovie(movies[2]),
+    users[1].addMovie(movies[3])
   ])
 
-  console.log('Shows and User database info populated!')
+  console.log('Movies and User database info populated!')
 }
 
 // export my seed function

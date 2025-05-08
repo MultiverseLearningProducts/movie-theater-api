@@ -8,21 +8,21 @@ through an application server. We will be testing our API endpoints using
 Postman, so no UI code is needed for now.
 
 Your main task is creating the API! We will be working with Express to create
-Routers for `Users` and `Shows`. We have a seed file that contains a list of
-users and shows to add to the database. We will need to include that seed file
+Routers for `Users` and `Movies`. We have a seed file that contains a list of
+users and movies to add to the database. We will need to include that seed file
 in our main server. While we don’t have a front-end, we will be using Postman to
 interact with our API.
 
 We’ll have 2 Express Routers:
 
 - `Users`
-- `Shows`
+- `Movies`
 
 ## Specifications
 
 ### User story
 
-As a **user**, I want to keep track of the shows I have watched, so that I can
+As a **user**, I want to keep track of the movies I have watched, so that I can
 satisfy my urge to list things
 
 ### Install Dependencies
@@ -45,17 +45,17 @@ Create the route handlers for the project, per these definitions:
 
 - `GET` all users
 - `GET` one user (user id in `req.params`)
-- `GET` all shows watched by a user (user id in `req.params`)
-- `PUT` associate a user with a show they have watched
+- `GET` all movies watched by a user (user id in `req.params`)
+- `PUT` associate a user with a movie they have watched
 
-**Shows**
+**Movies**
 
-- `GET` all shows
-- `GET` one show (show id in `req.params`)
-- `GET` all users who watched a show
-- `PUT` update the `available` property of a show
-- `DELETE` a show
-- `GET` shows of a particular genre (genre in `req.params`)
+- `GET` all movies
+- `GET` one movie (movie id in `req.params`)
+- `GET` all users who watched a movie
+- `PUT` update the `available` property of a movie
+- `DELETE` a movie
+- `GET` movies of a particular genre (genre in `req.params`)
 
 **Make sure to include your routers in a directory named `routes`**
 
